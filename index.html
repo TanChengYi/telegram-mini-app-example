@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Init Data</title>
+    <script src="https://telegram.org/js/telegram-web-app.js?2"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color, #fff);
+            color: var(--tg-theme-text-color, #222);
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        pre {
+            background: rgba(0, 0, 0, .07);
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .hint {
+            font-size: .9em;
+            color: var(--tg-theme-hint-color, #888);
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Init Data (Raw)</h2>
+    <pre id="init_data_raw"></pre>
+    <div class="hint">Raw init data string passed to WebApp</div>
+
+    <h2>Init Data Unsafe (Parsed)</h2>
+    <pre id="init_data_unsafe"></pre>
+    <div class="hint">Parsed object form of init data</div>
+
+    <script>
+        const initDataRaw = Telegram.WebApp.initData || '';
+        const initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
+
+        document.getElementById('init_data_raw').textContent = initDataRaw;
+        document.getElementById('init_data_unsafe').textContent = JSON.stringify(initDataUnsafe, null, 2);
+    </script>
+</body>
+</html>
