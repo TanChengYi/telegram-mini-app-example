@@ -5,7 +5,7 @@ One-page demo covering common [Telegram WebApp](https://core.telegram.org/bots/w
 ## Run
 
 1. Deploy the contents of this repository to a static host.
-2. Set your bot's `WebApp` url to `https://your.host/public/index.html`.
+2. Set your bot's `WebApp` url to `https://your.host/index.html`.
 3. Open the bot in Telegram and tap the button to launch the mini app.
 
 ## Features
@@ -17,7 +17,7 @@ One-page demo covering common [Telegram WebApp](https://core.telegram.org/bots/w
 - Clipboard reading and QR scanning
 - External links and permission requests
 
-Screenshots are available in the `public` folder when running.
+Screenshots are available in the project root when running.
 
 ## Themes & Languages
 
