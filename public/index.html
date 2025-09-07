@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Telegram Mini App Showcase</title>
+  <link id="theme-style" rel="stylesheet" href="../src/themes/neon-blue.css" />
+  <style>
+    body{background:var(--bg);color:var(--fg);font-family:sans-serif;margin:0;padding:1rem;}
+    header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;}
+    .info span{margin-right:1rem;}
+    .card{background:rgba(255,255,255,0.05);border-radius:12px;box-shadow:0 0 10px var(--accent-glow);padding:1rem;margin:1rem 0;}
+    button{border:none;padding:0.5rem 1rem;margin:0.25rem;border-radius:12px;background:var(--accent);color:var(--fg);box-shadow:0 0 8px var(--accent-glow);cursor:pointer;transition:0.2s;}
+    button:hover{opacity:0.9;box-shadow:0 0 12px var(--accent-glow);} 
+    button:active{opacity:0.8;box-shadow:0 0 2px var(--accent-glow);} 
+    pre{background:rgba(0,0,0,0.5);padding:0.5rem;border-radius:12px;overflow-x:auto;}
+    .split{display:flex;flex-wrap:wrap;gap:1rem;}
+    .btn-group{display:flex;flex-wrap:wrap;align-items:center;}
+  </style>
+</head>
+<body>
+  <header class="info">
+    <span id="env-info"></span>
+    <span id="theme-info"></span>
+    <span id="version-info"></span>
+    <div>
+      <select id="theme-select">
+        <option value="neon-blue" data-i18n="theme_neon"></option>
+        <option value="cyber-mint" data-i18n="theme_mint"></option>
+        <option value="sunset-magenta" data-i18n="theme_sunset"></option>
+      </select>
+      <select id="lang-select">
+        <option value="en" data-i18n="lang_en"></option>
+        <option value="zh" data-i18n="lang_zh"></option>
+      </select>
+    </div>
+  </header>
+  <main>
+    <section id="init-data" class="card">
+      <h2 data-i18n="init_data_title"></h2>
+      <div class="split">
+        <div><h3 data-i18n="raw_label"></h3><pre id="raw-data"></pre></div>
+        <div><h3 data-i18n="parsed_label"></h3><pre id="parsed-data"></pre></div>
+      </div>
+      <button id="validate-btn" data-i18n="verify_info"></button>
+    </section>
+
+    <section id="window-theme" class="card">
+      <h2 data-i18n="window_theme_title"></h2>
+      <div class="btn-group">
+        <button id="ready-btn" data-i18n="ready"></button>
+        <button id="expand-btn" data-i18n="expand"></button>
+        <button id="close-btn" data-i18n="close"></button>
+        <button id="header-color-btn" data-i18n="set_header_color"></button>
+        <button id="bg-color-btn" data-i18n="set_bg_color"></button>
+      </div>
+      <div>
+        <div><span data-i18n="viewport_height"></span>: <span id="viewport"></span></div>
+        <div><span data-i18n="stable_height"></span>: <span id="stable"></span></div>
+        <div><span data-i18n="is_expanded"></span>: <span id="expanded"></span></div>
+        <div><span data-i18n="color_scheme"></span>: <span id="color-scheme"></span></div>
+        <div><span data-i18n="theme_params"></span>: <span id="theme-params"></span></div>
+      </div>
+    </section>
+
+    <section id="nav-buttons" class="card">
+      <h2 data-i18n="nav_buttons_title"></h2>
+      <div class="btn-group">
+        <button id="main-btn-toggle" data-i18n="main_button_show"></button>
+        <button id="main-btn-enable" data-i18n="main_button_enable"></button>
+        <button id="main-btn-text" data-i18n="main_button_text"></button>
+        <button id="main-btn-color" data-i18n="main_button_color"></button>
+        <button id="back-btn-toggle" data-i18n="back_button_show"></button>
+      </div>
+    </section>
+
+    <section id="interactions" class="card">
+      <h2 data-i18n="interactions_title"></h2>
+      <div class="btn-group">
+        <button id="alert-btn" data-i18n="show_alert"></button>
+        <button id="confirm-btn" data-i18n="show_confirm"></button>
+        <button id="popup-btn" data-i18n="show_popup"></button>
+        <button id="impact-light-btn" data-i18n="haptic_impact_light"></button>
+        <button id="impact-medium-btn" data-i18n="haptic_impact_medium"></button>
+        <button id="impact-heavy-btn" data-i18n="haptic_impact_heavy"></button>
+        <button id="notify-success-btn" data-i18n="haptic_notify_success"></button>
+        <button id="notify-warning-btn" data-i18n="haptic_notify_warning"></button>
+        <button id="notify-error-btn" data-i18n="haptic_notify_error"></button>
+      </div>
+    </section>
+
+    <section id="clipboard-qr" class="card">
+      <h2 data-i18n="clipboard_qr_title"></h2>
+      <div class="btn-group">
+        <button id="clipboard-btn" data-i18n="read_clipboard"></button>
+        <span id="clipboard-result"></span>
+        <button id="qr-btn" data-i18n="scan_qr"></button>
+        <span id="qr-result"></span>
+      </div>
+    </section>
+
+    <section id="links-perms" class="card">
+      <h2 data-i18n="links_permissions_title"></h2>
+      <div class="btn-group">
+        <button id="open-link-btn" data-i18n="open_link"></button>
+        <button id="open-tg-link-btn" data-i18n="open_tg_link"></button>
+        <button id="write-access-btn" data-i18n="request_write_access"></button>
+        <button id="request-contact-btn" data-i18n="request_contact"></button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="../src/main.js"></script>
+</body>
+</html>
