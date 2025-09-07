@@ -1,4 +1,4 @@
-import { isTelegram, tg, version } from './env.js';
+import { tg, version } from './env.js';
 
 /**
  * Show a common message when feature used outside Telegram.
@@ -13,117 +13,148 @@ function unavailable() {
  * @returns {boolean}
  */
 function ensure(min) {
-  if (!isTelegram) {
+  const app = tg();
+  if (!app) {
     unavailable();
-    return false;
+    return null;
   }
-  if (min && parseFloat(version) < min) {
+  if (min && parseFloat(version()) < min) {
     alert(`Requires Telegram ${min}+`);
-    return false;
+    return null;
   }
-  return true;
+  return app;
 }
 
-export const initDataRaw = isTelegram ? tg.initData : '';
-export const initData = isTelegram ? tg.initDataUnsafe : {};
+export function initDataRaw() {
+  const app = tg();
+  return app ? app.initData : '';
+}
+export function initData() {
+  const app = tg();
+  return app ? app.initDataUnsafe : {};
+}
 
 export function ready() {
-  if (ensure()) tg.ready();
+  const app = ensure();
+  app?.ready();
 }
 
 export function expand() {
-  if (ensure()) tg.expand();
+  const app = ensure();
+  app?.expand();
 }
 
 export function close() {
-  if (ensure()) tg.close();
+  const app = ensure();
+  app?.close();
 }
 
 export function setHeaderColor(color) {
-  if (ensure()) tg.setHeaderColor(color);
+  const app = ensure();
+  app?.setHeaderColor(color);
 }
 
 export function setBackgroundColor(color) {
-  if (ensure()) tg.setBackgroundColor(color);
+  const app = ensure();
+  app?.setBackgroundColor(color);
 }
 
 export function showAlert(text) {
-  if (ensure()) tg.showAlert(text);
+  const app = ensure();
+  app?.showAlert(text);
 }
 
 export function showConfirm(text) {
-  if (!ensure()) return Promise.resolve(false);
-  return tg.showConfirm(text);
+  const app = ensure();
+  if (!app) return Promise.resolve(false);
+  return app.showConfirm(text);
 }
 
 export function showPopup(params) {
-  if (ensure()) tg.showPopup(params);
+  const app = ensure();
+  app?.showPopup(params);
 }
 
 export function hapticImpact(style) {
-  if (ensure()) tg.HapticFeedback.impactOccurred(style);
+  const app = ensure();
+  app?.HapticFeedback?.impactOccurred(style);
 }
 
 export function hapticNotification(type) {
-  if (ensure()) tg.HapticFeedback.notificationOccurred(type);
+  const app = ensure();
+  app?.HapticFeedback?.notificationOccurred(type);
 }
 
 export function readTextFromClipboard() {
-  if (!ensure(6.7)) return Promise.resolve('');
-  return tg.readTextFromClipboard();
+  const app = ensure(6.7);
+  if (!app) return Promise.resolve('');
+  return app.readTextFromClipboard();
 }
 
 export function showScanQrPopup(cb) {
-  if (!ensure(6.4)) return;
-  tg.showScanQrPopup({ text: 'scan' }, cb);
+  const app = ensure(6.4);
+  if (!app) return;
+  app.showScanQrPopup({ text: 'scan' }, cb);
 }
 
 export function openLink(url) {
-  if (ensure()) tg.openLink(url);
+  const app = ensure();
+  app?.openLink(url);
 }
 
 export function openTelegramLink(url) {
-  if (ensure()) tg.openTelegramLink(url);
+  const app = ensure();
+  app?.openTelegramLink(url);
 }
 
 export function requestWriteAccess() {
-  if (ensure()) tg.requestWriteAccess();
+  const app = ensure();
+  app?.requestWriteAccess();
 }
 
 export function requestContact() {
-  if (ensure()) tg.requestContact();
+  const app = ensure();
+  app?.requestContact();
 }
 
 export function mainButtonShow() {
-  if (ensure()) tg.MainButton.show();
+  const app = ensure();
+  app?.MainButton.show();
 }
 
 export function mainButtonHide() {
-  if (ensure()) tg.MainButton.hide();
+  const app = ensure();
+  app?.MainButton.hide();
 }
 
 export function mainButtonEnable() {
-  if (ensure()) tg.MainButton.enable();
+  const app = ensure();
+  app?.MainButton.enable();
 }
 
 export function mainButtonDisable() {
-  if (ensure()) tg.MainButton.disable();
+  const app = ensure();
+  app?.MainButton.disable();
 }
 
 export function mainButtonSetText(text) {
-  if (ensure()) tg.MainButton.setText(text);
+  const app = ensure();
+  app?.MainButton.setText(text);
 }
 
 export function mainButtonSetColor(color) {
-  if (ensure()) tg.MainButton.setParams({ color });
+  const app = ensure();
+  app?.MainButton.setParams({ color });
 }
 
 export function backButtonShow() {
-  if (ensure()) tg.BackButton.show();
+  const app = ensure();
+  app?.BackButton.show();
 }
 
 export function backButtonHide() {
-  if (ensure()) tg.BackButton.hide();
+  const app = ensure();
+  app?.BackButton.hide();
 }
 
 export { ensure };

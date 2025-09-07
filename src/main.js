@@ -5,13 +5,14 @@ import { initUI, t, updateHeader } from './ui.js';
 initUI().then(setup);
 
 function setup() {
-  if (isTelegram) {
-    document.getElementById('raw-data').textContent = api.initDataRaw;
-    document.getElementById('parsed-data').textContent = JSON.stringify(api.initData, null, 2);
-    tg.onEvent('viewportChanged', updateWindowInfo);
-    tg.onEvent('themeChanged', updateThemeInfo);
-    tg.onEvent('mainButtonClicked', () => alert(t('on_click')));
-    tg.onEvent('backButtonClicked', () => alert(t('on_click')));
+  if (isTelegram()) {
+    document.getElementById('raw-data').textContent = api.initDataRaw();
+    document.getElementById('parsed-data').textContent = JSON.stringify(api.initData(), null, 2);
+    const app = tg();
+    app.onEvent('viewportChanged', updateWindowInfo);
+    app.onEvent('themeChanged', updateThemeInfo);
+    app.onEvent('mainButtonClicked', () => alert(t('on_click')));
+    app.onEvent('backButtonClicked', () => alert(t('on_click')));
     updateWindowInfo();
     updateThemeInfo();
   } else {
@@ -96,15 +97,17 @@ function bindEvents() {
 }
 
 function updateWindowInfo() {
-  if (!isTelegram) return;
-  document.getElementById('viewport').textContent = tg.viewportHeight;
-  document.getElementById('stable').textContent = tg.stableHeight;
-  document.getElementById('expanded').textContent = tg.isExpanded;
+  const app = tg();
+  if (!app) return;
+  document.getElementById('viewport').textContent = app.viewportHeight;
+  document.getElementById('stable').textContent = app.stableHeight;
+  document.getElementById('expanded').textContent = app.isExpanded;
 }
 
 function updateThemeInfo() {
-  if (!isTelegram) return;
-  document.getElementById('color-scheme').textContent = tg.colorScheme;
-  document.getElementById('theme-params').textContent = JSON.stringify(tg.themeParams);
+  const app = tg();
+  if (!app) return;
+  document.getElementById('color-scheme').textContent = app.colorScheme;
+  document.getElementById('theme-params').textContent = JSON.stringify(app.themeParams);
 }
 
