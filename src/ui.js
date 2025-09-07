@@ -54,9 +54,9 @@ export function updateHeader() {
   const envEl = document.getElementById('env-info');
   const themeEl = document.getElementById('theme-info');
   const verEl = document.getElementById('version-info');
-  if (envEl) envEl.textContent = `${t('env_label')}: ${environment}`;
+  if (envEl) envEl.textContent = `${t('env_label')}: ${environment()}`;
   if (themeEl) themeEl.textContent = `${t('theme_label')}: ${t('theme_' + currentTheme.replace('-', ''))}`;
-  if (verEl) verEl.textContent = `${t('version_label')}: ${version}`;
+  if (verEl) verEl.textContent = `${t('version_label')}: ${version()}`;
 }
 
 /** Initialize UI controls. */
